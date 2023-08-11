@@ -1,6 +1,4 @@
+import english_text
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    english_text
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    english_text.create_statistics()
