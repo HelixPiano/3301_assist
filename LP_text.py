@@ -4,7 +4,7 @@ import helper_functions as hpf
 
 
 def read_csv_file() -> pd.DataFrame:
-    df = pd.read_csv("LP/readeasiertranscript2.csv", usecols=["word", "sections"])
+    df = pd.read_csv("readeasiertranscript2.csv", usecols=["word", "sections"])
     df.sections = df.sections - 1
     return df
 
