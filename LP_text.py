@@ -4,14 +4,13 @@ import helper_functions as hpf
 
 
 def read_csv_file() -> pd.DataFrame:
-    df = pd.read_csv("LP/readeasiertranscript2.csv")
-    df.drop(columns=["punct", "Unnamed: 0", "index"], inplace=True)
+    df = pd.read_csv("LP/readeasiertranscript2.csv", usecols=["word", "sections"])
     df.sections = df.sections - 1
     return df
 
 
 def section_names() -> list[str]:
-    return ["0-2-cross", "3-7-spirals", "8-14-branches", "15-22-mobius", "23-26-mayfly", "27-32-wing-tree",
+    return ["00-02-cross", "03-07-spirals", "08-14-branches", "15-22-mobius", "23-26-mayfly", "27-32-wing-tree",
             "33-39-cunfeiform", "40-55-spiral-branches", "54-55-jpg", "56-an-end", "57-parable"]
 
 
@@ -55,11 +54,3 @@ def get_words(dx: pd.DataFrame) -> tuple[int, str]:
     words.insert(0, dx.word[0])
     new_list = [x.replace(",", "").upper() for x in words]
     return len(new_list), ' '.join(new_list)
-
-
-def gp_summation(dx: pd.DataFrame) -> list[int]:
-    dx["changed"] = dx["word_gemetria_value"].shift(1, fill_value=dx["word_gemetria_value"].head(1).item()) != dx[
-        "word_gemetria_value"]
-    gp_sums = list(dx.loc[dx["changed"], "word_gemetria_value"])
-    gp_sums.insert(0, dx.word_gemetria_value[0])
-    return gp_sums
