@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.font_manager
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 
 def plot_bigrams(input_array, axis_option=None, fullscreen=None):
@@ -39,7 +40,7 @@ def plot_bigrams(input_array, axis_option=None, fullscreen=None):
     plt.show()
 
 
-def plot_letter_frequency(input_array, axis_option=None):
+def plot_letter_frequency(input_array, axis_option=None, fullscreen=None):
     matplotlib.rcParams['font.family'] = "Segoe UI Historic"
 
     _, counts = np.unique(input_array, return_counts=True)
@@ -48,14 +49,18 @@ def plot_letter_frequency(input_array, axis_option=None):
         for number in range(29):
             counts[number] = np.sum(input_array == number)
     fig, ax = plt.subplots()
-    plt.plot(np.arange(29), counts)
+    plt.bar(np.arange(29), counts)
     ax.set_xticks(np.arange(29))
-    ax.set_xlim(left=0, right=28)
+    ax.set_xlim(left=-1, right=29)
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
     if axis_option == 'runes':
         ax.set_xticklabels(rune_ticks())
     if axis_option == 'latin':
         ax.set_xticklabels(latin_ticks())
+
+    if fullscreen:
+        plot_fullscreen()
 
     plt.tight_layout()
     plt.show()
